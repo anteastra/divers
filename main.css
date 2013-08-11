@@ -1,0 +1,11 @@
+#layers {
+  position: relative;
+  margin: 0 auto;
+  width:762px;
+  height: 685px;
+}
+#layers canvas{
+  left: 50%;
+  margin-left: -384px;
+  position: absolute;
+}
