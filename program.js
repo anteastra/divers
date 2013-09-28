@@ -1,14 +1,18 @@
-﻿var diverGame = {
+﻿var diver = {
+  width: 66,
+  height: 63,
+  frames: 2, 
+  currentFrame: 0,
+  x: 20,
+  y: 400
+};
+
+var diverGame = {
   ctx: "",
   ctx2: "",
   back: new Image(),
   diver: new Image(),
-  dwidth: 66,
-  dheight: 63,
-  dframes: 2, 
-  dcurrentFrame: 0,
-  diverX: 20,
-  diverY: 400,
+  loc_diver: diver,
 
   func_init: function(){
     this.back.src = 'images/back.jpg';
@@ -30,17 +34,21 @@
   },
 
   func_render: function(){
-    this.ctx.clearRect(this.diverX, this.diverY, this.dwidth, this.dheight); 
-    this.diverX++;
-    this.diverX++;
-    this.diverX++;
-    if (this.diverX>675) this.diverX = 20;
-    this.ctx.drawImage(this.diver, 0, this.dheight * this.dcurrentFrame, this.dwidth, this.dheight, this.diverX, this.diverY, this.dwidth, this.dheight); 
-        if (this.dcurrentFrame === this.dframes) { 
-          this.dcurrentFrame = 0; 
-        } else { 
-          this.dcurrentFrame++; 
-        }
+    this.ctx.clearRect(this.loc_diver.x, this.loc_diver.y, this.loc_diver.width, this.loc_diver.height); 
+    this.loc_diver.x++;
+    this.loc_diver.x++;
+    this.loc_diver.x++;
+    if (this.loc_diver.x>675) this.loc_diver.x = 20;
+    this.ctx.drawImage(this.diver, 0, this.loc_diver.height * this.loc_diver.currentFrame, 
+      this.loc_diver.width, this.loc_diver.height, this.loc_diver.x, this.loc_diver.y, 
+      this.loc_diver.width, this.loc_diver.height); 
+    if (this.loc_diver.currentFrame === this.loc_diver.frames) { 
+      this.loc_diver.currentFrame = 0; 
+    } else { 
+      this.loc_diver.currentFrame++; 
+    }
   }
 }
+
+
 
