@@ -1,11 +1,54 @@
 ﻿#layers {
   position: relative;
   margin: 0 auto;
-  width:762px;
-  height: 685px;
+  
 }
 #layers canvas{
   left: 50%;
   margin-left: -384px;
   position: absolute;
+  top:0; 
+  z-index:0
 }
+
+.add-div{
+  left: 50%;
+  margin-left: 200px;
+  position: absolute;
+  top:0; 
+  z-index:1;
+}
+
+.delete-div{
+  left: 50%;
+  margin-left: 0px;
+  position: absolute;
+  top:0; 
+  z-index:1;
+}
+
+#layers button{
+  margin: 5px;
+}
+
+.button{
+	cursor:pointer;
+    width: 163px;
+	height: 32px;
+    line-height:32px;
+    text-align:center;
+    background-repeat:no-repeat;
+}
+
+.button.addDiver{
+	background: url(images/add-diver.png);
+}
+.button.addDiver:hover {
+   background: url(images/add-diver-hover.png);
+ }
+.button.deleteDiver{
+	background: url(images/delete-diver.png);
+}
+.button.deleteDiver:hover {
+   background: url(images/delete-diver-hover.png);
+ }
