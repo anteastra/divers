@@ -32,14 +32,12 @@
   return that;
 }
 
-var diver = new Diver();
-
 var diverGame = {
   ctx: "",
   ctx2: "",
   back: new Image(),
   diver: new Image(),
-  loc_diver: diver,
+  diver_array: [],
 
   func_init: function(){
     this.back.src = 'images/back.jpg';
@@ -61,7 +59,19 @@ var diverGame = {
   },
 
   func_render: function(){
-    this.loc_diver.render(this.ctx);    
+    if(this.diver_array.length > 0){
+      for(var i in this.diver_array){
+        this.diver_array[i].render(this.ctx);    
+      }
+    }
+  },
+
+  func_add_diver: function(){
+    this.diver_array.push(new Diver());
+  },
+
+  func_remove_diver: function(){
+    this.diver_array.pop();
   }
 }
 
