@@ -1,15 +1,18 @@
 ﻿function Diver(){
-  var that = {};
-  that.width = 66;
-  that.height = 63;
-  that.frames = 2;
-  that.currentFrame = 0;
-  that.x = 20;
-  that.y = 400;
-  that.sprite = new Image();
-  that.sprite.src = 'images/diver.png';
+  if (!(this instanceof Diver)) {
+    return new Diver();
+  }  
+  this.width = 66;
+  this.height = 63;
+  this.frames = 2;
+  this.currentFrame = 0;
+  this.x = 20;
+  this.y = 400;
+  this.sprite = new Image();
+  this.sprite.src = 'images/diver.png';
+}
 
-  that.render = function(ctx){
+Diver.prototype.render = function(ctx){
     ctx.clearRect(this.x, this.y, this.width, this.height); 
     this.move();
     if (this.x>675) this.x = 20;
@@ -21,16 +24,13 @@
     } else { 
       this.currentFrame++; 
     }
-  };
+};
 
-  that.move = function(){
+Diver.prototype.move = function(){
     this.x++;
     this.x++;
     this.x++;
-  }
-
-  return that;
-}
+};
 
 var diverGame = {
   ctx: "",
