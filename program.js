@@ -42,9 +42,47 @@ Diver.prototype.move = function(){
     if (this.x>675) this.x = 20;
 };
 
+
+function Star(x, y, point){
+  if (!(this instanceof Star)) {
+    return new Star(x, y, point);
+  }  
+  this.width = 46;
+  this.height = 43;
+  this.x = x - this.width/2-7;
+  this.y = y - this.height/2-7;
+  this.last_x = this.x;
+  this.last_y = this.y;
+  this.point = point;
+  this.sprite = new Image();
+  var src = 'images/tf-star'+point+'.png';
+  this.sprite.src = src;
+}
+
+Star.prototype.render = function(ctx){
+    ctx.drawImage(this.sprite, 0, 0, 
+      this.width, this.height, this.x, this.y, 
+      this.width, this.height);    
+};
+
+Star.prototype.clear = function(ctx){
+    ctx.clearRect(this.last_x, this.last_y, this.width, this.height);
+    this.last_x = this.x;
+    this.last_y = this.y;    
+};
+
+Star.prototype.calculate = function(){    
+    this.move();   
+};
+
+Star.prototype.move = function(){    
+};
+
 var diverGame = {
-  ctx: "",
+  ctx: {},
+  ctxStar: {},
   diver_array: [],
+  star_array: [],
 
   func_init: function(){
     var canvas = document.getElementById('back');
@@ -58,7 +96,15 @@ var diverGame = {
     canvas = document.getElementById('tutorial');
     if (canvas.getContext) {
       this.ctx = canvas.getContext('2d');
-    }  
+    }
+	
+	canvas = document.getElementById('ui');
+    if (canvas.getContext) {
+      this.ctxStar = canvas.getContext('2d');
+    }		
+	var self = this;
+	canvas.addEventListener("mousedown", function(event){self.func_add_star(event);}, false);
+	
   },
 
   func_draw: function(){
@@ -71,13 +117,24 @@ var diverGame = {
     if(this.diver_array.length > 0){
       for(var i in this.diver_array){
         this.diver_array[i].calculate();        
-      }
+      }	  
       for(var i in this.diver_array){
         this.diver_array[i].clear(this.ctx);        
-      }
+      }	  
       for(var i in this.diver_array){
         this.diver_array[i].render(this.ctx);        
-      }
+      }	  
+    }
+	if(this.star_array.length > 0){
+      for(var i in this.star_array){
+        this.star_array[i].calculate();        
+      }	  
+      for(var i in this.star_array){
+        this.star_array[i].clear(this.ctxStar);        
+      }	  
+      for(var i in this.star_array){
+        this.star_array[i].render(this.ctxStar);        
+      }	  
     }
   },
 
@@ -88,8 +145,20 @@ var diverGame = {
   func_remove_diver: function(){
     var diver = this.diver_array.pop();
 	diver.clear(this.ctx);
+  },
+  
+  func_add_star: function(event){
+	var x = event.x;
+	var y = event.y;
+
+	var canvas = document.getElementById('ui');
+	var point = Math.round(Math.random() * (10 - 1) + 1);
+
+	x -= canvas.offsetLeft;
+	y -= canvas.offsetTop;
+
+	console.log('point:'+point+' x:' + x + ' y:' + y);
+	
+	this.star_array.push(new Star(x,y,point));
   }
 }
-
-
-
