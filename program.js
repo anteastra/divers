@@ -86,7 +86,8 @@ var diverGame = {
   },
 
   func_remove_diver: function(){
-    this.diver_array.pop();
+    var diver = this.diver_array.pop();
+	diver.clear(this.ctx);
   }
 }
 
